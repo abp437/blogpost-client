@@ -1,22 +1,10 @@
-import { useApolloClient, useQuery } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
+import { useQuery } from "@apollo/client";
 import { GET_MY_POSTS } from "@/graphql/queries/postQueries";
 import PostCard from "@/components/blog/PostCard";
 import CreatePostForm from "@/components/blog/CreatePostForm";
-import { Button } from "@/components/ui/button";
-import { ACCESS_TOKEN_STORAGE_KEY } from "@/constants/authClient";
 
 function Dashboard() {
   const { data, loading, error } = useQuery(GET_MY_POSTS);
-
-  const client = useApolloClient();
-  const navigate = useNavigate();
-
-  function handleLogout() {
-    localStorage.removeItem(ACCESS_TOKEN_STORAGE_KEY);
-    client.clearStore();
-    navigate("/", { replace: true });
-  }
 
   if (loading) {
     return (
@@ -35,20 +23,7 @@ function Dashboard() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl space-y-6 px-4 py-8">
-      <div className="flex items-start justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">My Dashboard</h1>
-          <p className="text-muted-foreground">
-            Create and manage your blog posts
-          </p>
-        </div>
-
-        <Button variant="outline" onClick={handleLogout}>
-          Logout
-        </Button>
-      </div>
-
+    <div className="space-y-6">
       <CreatePostForm />
 
       {data?.myPosts?.length ? (
