@@ -52,16 +52,16 @@ function RegisterForm() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted/40 px-4">
+    <div className="flex items-center justify-center px-4 py-8">
       <Card className="w-full max-w-md shadow-lg">
-        <CardHeader className="space-y-2 text-center">
+        <CardHeader className="space-y-1 p-6 text-center">
           <CardTitle className="text-2xl font-bold">Create Account</CardTitle>
           <CardDescription>Register to start creating and sharing posts</CardDescription>
         </CardHeader>
 
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="space-y-2">
+        <CardContent className="px-6 pb-6">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-1.5">
               <Label htmlFor="name">Name</Label>
 
               <Input
@@ -75,7 +75,7 @@ function RegisterForm() {
               />
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <Label htmlFor="email">Email</Label>
 
               <Input
@@ -89,7 +89,7 @@ function RegisterForm() {
               />
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <Label htmlFor="password">Password</Label>
 
               <Input
