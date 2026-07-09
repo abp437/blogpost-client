@@ -37,9 +37,7 @@ function getPathname(url = "") {
 function isAuthFreeEndpoint(url = "") {
   const pathname = getPathname(url);
 
-  return AUTH_FREE_ENDPOINTS.some(
-    (endpoint) => pathname === endpoint || pathname.startsWith(`${endpoint}/`),
-  );
+  return AUTH_FREE_ENDPOINTS.some((endpoint) => pathname === endpoint || pathname.startsWith(`${endpoint}/`));
 }
 
 // Add auth headers
@@ -83,9 +81,7 @@ axiosInstance.interceptors.response.use(
     }
 
     const shouldRefresh =
-      error.response?.status === 401 &&
-      !originalRequest._retry &&
-      !isAuthFreeEndpoint(originalRequest.url);
+      error.response?.status === 401 && !originalRequest._retry && !isAuthFreeEndpoint(originalRequest.url);
 
     if (!shouldRefresh) {
       return Promise.reject(error);
@@ -115,8 +111,7 @@ axiosInstance.interceptors.response.use(
 
       originalRequest.headers = originalRequest.headers || {};
 
-      originalRequest.headers[AUTH_HEADER_KEYS.AUTHORIZATION] =
-        `Bearer ${newAccessToken}`;
+      originalRequest.headers[AUTH_HEADER_KEYS.AUTHORIZATION] = `Bearer ${newAccessToken}`;
 
       return axiosInstance(originalRequest);
     } catch (refreshError: unknown) {
