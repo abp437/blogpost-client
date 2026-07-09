@@ -3,6 +3,10 @@ import {
   type FormEvent,
 } from "react";
 import {
+  Link,
+  useNavigate,
+} from "react-router-dom";
+import {
   Card,
   CardContent,
   CardDescription,
@@ -28,6 +32,7 @@ interface RegisterFormData {
 
 
 function RegisterForm() {
+  const navigate = useNavigate();
   const [formData, setFormData] =
     useState<RegisterFormData>({
       name: "",
@@ -73,6 +78,7 @@ function RegisterForm() {
         email: "",
         password: "",
       });
+      navigate("/login");
     } catch (error) {
       setMessage(
         error instanceof Error
@@ -225,6 +231,24 @@ function RegisterForm() {
                 </p>
               )
             }
+
+            <div className="
+  text-center
+  text-sm
+  text-muted-foreground
+">
+              Already have an account?{" "}
+              <Link
+                to="/login"
+                className="
+      font-medium
+      text-primary
+      hover:underline
+    "
+              >
+                Login
+              </Link>
+            </div>
 
 
           </form>

@@ -2,6 +2,10 @@ import {
   useState,
   type FormEvent,
 } from "react";
+import {
+  Link,
+  useNavigate,
+} from "react-router-dom";
 
 import {
   Card,
@@ -36,7 +40,7 @@ interface LoginFormData {
 
 
 function LoginForm() {
-
+  const navigate = useNavigate();
   const [formData, setFormData] =
     useState<LoginFormData>({
       email: "",
@@ -105,8 +109,7 @@ function LoginForm() {
         email: "",
         password: "",
       });
-
-
+      navigate("/dashboard", { replace: true });
     } catch (error) {
 
       setMessage(
@@ -246,6 +249,23 @@ function LoginForm() {
               )
             }
 
+            <div className="
+  text-center
+  text-sm
+  text-muted-foreground
+">
+              Don't have an account?{" "}
+              <Link
+                to="/register"
+                className="
+      font-medium
+      text-primary
+      hover:underline
+    "
+              >
+                Register
+              </Link>
+            </div>
 
           </form>
 
