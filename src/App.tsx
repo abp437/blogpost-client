@@ -1,14 +1,13 @@
-import LoginForm from "@/components/LoginForm";
-import RegisterForm from "@/components/RegisterForm";
+import AppRoutes from "@/routes/AppRoutes";
+
 
 function App() {
+
   return (
-    <>
-      <RegisterForm />
-      <hr />
-      <LoginForm />
-    </>
+    <AppRoutes />
   );
+
 }
+
 
 export default App;
