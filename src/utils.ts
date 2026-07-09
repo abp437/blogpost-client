@@ -16,3 +16,20 @@ export const getDeviceOperatingSystem = () => {
 
   return "Unknown";
 };
+
+export const getReadableDate = (date: string) => {
+  return new Date(date).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+};
+
+export const getReadingTime = (content: string) => {
+  const words = content.trim().split(/\s+/).length;
+  const wordsPerMinute = 160;
+
+  const minutes = Math.ceil(words / wordsPerMinute);
+
+  return `${minutes} min read`;
+};
