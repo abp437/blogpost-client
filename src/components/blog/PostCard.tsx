@@ -8,14 +8,21 @@ interface PostCardProps {
 
 function PostCard({ title, content, createdAt }: PostCardProps) {
   return (
-    <Card>
+    <Card className="transition-shadow hover:shadow-md">
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
+        <CardTitle className="font-serif text-xl leading-snug">
+          {title}
+        </CardTitle>
       </CardHeader>
 
-      <CardContent>
-        <p className="text-muted-foreground">{content}</p>
-        <p className="mt-3 text-xs text-muted-foreground">{new Date(createdAt).toLocaleDateString()}</p>
+      <CardContent className="space-y-3">
+        <p className="font-serif text-sm leading-7 text-muted-foreground">
+          {content}
+        </p>
+
+        <p className="font-sans text-xs text-muted-foreground">
+          {new Date(createdAt).toLocaleDateString()}
+        </p>
       </CardContent>
     </Card>
   );

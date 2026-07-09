@@ -1,6 +1,11 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -14,13 +19,13 @@ interface LoginFormData {
 
 function LoginForm() {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState<LoginFormData>({
     email: "",
     password: "",
   });
 
   const [message, setMessage] = useState("");
-
   const [loading, setLoading] = useState(false);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -42,11 +47,14 @@ function LoginForm() {
       const { accessToken, user } = response.data;
 
       localStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, accessToken);
+
       setMessage(`Welcome back, ${user.name}!`);
+
       setFormData({
         email: "",
         password: "",
       });
+
       navigate("/dashboard", { replace: true });
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Login failed");
@@ -58,13 +66,14 @@ function LoginForm() {
   return (
     <div className="flex items-center justify-center px-4 py-8">
       <Card className="w-full max-w-md shadow-lg">
-        <CardHeader className="space-y-1 p-6 text-center">
-          <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
-          <CardDescription>Login to access your account</CardDescription>
+        <CardHeader className="space-y-2 p-6 text-center">
+          <CardTitle className="font-heading text-3xl font-bold tracking-tight">
+            Get ready to blog
+          </CardTitle>
         </CardHeader>
 
         <CardContent className="px-6 pb-6">
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-1.5">
               <Label htmlFor="email">Email</Label>
 
@@ -93,15 +102,29 @@ function LoginForm() {
               />
             </div>
 
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={loading}
+            >
               {loading ? "Logging in..." : "Login"}
             </Button>
 
-            {message && <p className="text-center text-sm text-muted-foreground">{message}</p>}
+            {message && (
+              <p
+                aria-live="polite"
+                className="text-center text-sm text-muted-foreground"
+              >
+                {message}
+              </p>
+            )}
 
             <div className="text-center text-sm text-muted-foreground">
               Don't have an account?{" "}
-              <Link to="/register" className="font-medium text-primary hover:underline">
+              <Link
+                to="/register"
+                className="font-medium text-primary hover:underline"
+              >
                 Register
               </Link>
             </div>

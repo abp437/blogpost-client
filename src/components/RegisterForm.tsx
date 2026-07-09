@@ -1,6 +1,12 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -45,7 +51,9 @@ function RegisterForm() {
       });
       navigate("/login");
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Registration failed");
+      setMessage(
+        error instanceof Error ? error.message : "Registration failed"
+      );
     } finally {
       setLoading(false);
     }
@@ -54,13 +62,18 @@ function RegisterForm() {
   return (
     <div className="flex items-center justify-center px-4 py-8">
       <Card className="w-full max-w-md shadow-lg">
-        <CardHeader className="space-y-1 p-6 text-center">
-          <CardTitle className="text-2xl font-bold">Create Account</CardTitle>
-          <CardDescription>Register to start creating and sharing posts</CardDescription>
+        <CardHeader className="space-y-2 p-6 text-center">
+          <CardTitle className="font-heading text-3xl font-bold tracking-tight">
+            Create Account
+          </CardTitle>
+
+          <CardDescription className="font-serif text-base">
+            Register to start creating and sharing posts
+          </CardDescription>
         </CardHeader>
 
         <CardContent className="px-6 pb-6">
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-1.5">
               <Label htmlFor="name">Name</Label>
 
@@ -103,15 +116,29 @@ function RegisterForm() {
               />
             </div>
 
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={loading}
+            >
               {loading ? "Creating account..." : "Register"}
             </Button>
 
-            {message && <p className="text-center text-sm text-muted-foreground">{message}</p>}
+            {message && (
+              <p
+                aria-live="polite"
+                className="text-center text-sm text-muted-foreground"
+              >
+                {message}
+              </p>
+            )}
 
             <div className="text-center text-sm text-muted-foreground">
               Already have an account?{" "}
-              <Link to="/login" className="font-medium text-primary hover:underline">
+              <Link
+                to="/login"
+                className="font-medium text-primary hover:underline"
+              >
                 Login
               </Link>
             </div>

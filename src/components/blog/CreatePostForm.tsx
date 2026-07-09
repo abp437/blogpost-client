@@ -1,7 +1,13 @@
 import { useState, type FormEvent } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_POST } from "@/graphql/mutations/postMutations";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -55,17 +61,20 @@ function CreatePostForm() {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Create Post</CardTitle>
-        <CardDescription>
+    <Card className="shadow-sm">
+      <CardHeader className="space-y-2">
+        <CardTitle className="font-heading text-2xl font-bold tracking-tight">
+          Create Post
+        </CardTitle>
+
+        <CardDescription className="font-serif text-base">
           Publish a new blog post
         </CardDescription>
       </CardHeader>
 
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="space-y-1.5">
             <Label htmlFor="title">Title</Label>
 
             <Input
@@ -78,7 +87,7 @@ function CreatePostForm() {
             />
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             <Label htmlFor="content">Content</Label>
 
             <Textarea
@@ -87,16 +96,23 @@ function CreatePostForm() {
               value={formData.content}
               onChange={handleChange}
               placeholder="Write your post..."
+              className="min-h-40"
               required
             />
           </div>
 
-          <Button type="submit" disabled={loading}>
+          <Button
+            type="submit"
+            disabled={loading}
+          >
             {loading ? "Creating..." : "Create Post"}
           </Button>
 
           {message && (
-            <p className="text-sm text-muted-foreground">
+            <p
+              aria-live="polite"
+              className="text-sm text-muted-foreground"
+            >
               {message}
             </p>
           )}

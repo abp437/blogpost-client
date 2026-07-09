@@ -7,7 +7,7 @@ function Home() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center font-sans">
         Loading blog posts...
       </div>
     );
@@ -15,23 +15,26 @@ function Home() {
 
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center font-sans">
         Failed to load blog posts.
       </div>
     );
   }
 
   return (
-    <div className="mx-auto max-w-5xl space-y-6 px-4 py-8">
-      <div>
-        <h1 className="text-3xl font-bold">Blog Posts</h1>
-        <p className="text-muted-foreground">
+    <div className="mx-auto max-w-5xl space-y-8 px-4 py-8">
+      <header className="space-y-2">
+        <h1 className="font-sans text-4xl font-bold tracking-tight">
+          Blog Posts
+        </h1>
+
+        <p className="font-serif text-lg text-muted-foreground">
           Explore posts shared by the community.
         </p>
-      </div>
+      </header>
 
       {data?.posts?.length ? (
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {data.posts.map((post: any) => (
             <PostCard
               key={post.id}
@@ -43,8 +46,11 @@ function Home() {
         </div>
       ) : (
         <div className="rounded-lg border border-dashed p-8 text-center">
-          <h2 className="text-lg font-semibold">No posts available</h2>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <h2 className="font-sans text-lg font-semibold">
+            No posts available
+          </h2>
+
+          <p className="mt-2 font-serif text-sm text-muted-foreground">
             There are no blog posts to display yet.
           </p>
         </div>
