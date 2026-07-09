@@ -4,7 +4,6 @@ import { ADD_POST } from "@/graphql/mutations/postMutations";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -18,7 +17,6 @@ function CreatePostForm() {
     title: "",
     content: "",
   });
-
   const [message, setMessage] = useState("");
 
   const [addPost, { loading }] = useMutation(ADD_POST, {
@@ -36,7 +34,6 @@ function CreatePostForm() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
     setMessage("");
 
     try {
@@ -48,7 +45,6 @@ function CreatePostForm() {
       });
 
       setMessage("Post created successfully!");
-
       setFormData({
         title: "",
         content: "",
@@ -66,10 +62,6 @@ function CreatePostForm() {
         <CardTitle className="font-heading text-2xl font-bold tracking-tight">
           Create Post
         </CardTitle>
-
-        <CardDescription className="font-serif text-base">
-          Publish a new blog post
-        </CardDescription>
       </CardHeader>
 
       <CardContent>
@@ -105,7 +97,7 @@ function CreatePostForm() {
             type="submit"
             disabled={loading}
           >
-            {loading ? "Creating..." : "Create Post"}
+            {loading ? "Creating..." : "Publish"}
           </Button>
 
           {message && (
