@@ -1,7 +1,14 @@
+import LoginForm from "@/components/LoginForm";
+import RegisterForm from "@/components/RegisterForm";
+
 function App() {
   return (
-    <h1>Hello, World!</h1>
-  )
+    <>
+      <RegisterForm />
+      <hr />
+      <LoginForm />
+    </>
+  );
 }
 
-export default App
+export default App;
