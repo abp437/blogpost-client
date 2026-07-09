@@ -15,7 +15,7 @@ function Dashboard() {
   function handleLogout() {
     localStorage.removeItem(ACCESS_TOKEN_STORAGE_KEY);
     client.clearStore();
-    navigate("/login", { replace: true });
+    navigate("/", { replace: true });
   }
 
   if (loading) {

@@ -16,7 +16,7 @@ function CreatePostForm() {
   const [message, setMessage] = useState("");
 
   const [addPost, { loading }] = useMutation(ADD_POST, {
-    refetchQueries: ["GetPosts"],
+    refetchQueries: ["GetMyPosts"],
   });
 
   function handleChange(
