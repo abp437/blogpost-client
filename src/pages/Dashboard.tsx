@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
+import { Link } from "react-router-dom";
 import { Pencil, Trash2, X, Check } from "lucide-react";
 
 import { GET_MY_POSTS } from "@/graphql/queries/postQueries";

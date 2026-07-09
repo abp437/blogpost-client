@@ -6,6 +6,7 @@ import Register from "@/pages/Register";
 import Home from "@/pages/Home";
 import Dashboard from "@/pages/Dashboard";
 import NotFound from "@/pages/NotFound";
+import PostDetails from "@/pages/PostDetails";
 
 export default function AppRoutes() {
   return (
@@ -17,6 +18,7 @@ export default function AppRoutes() {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/posts/:id" element={<PostDetails />} />
         </Route>
 
         {/* Protected Routes */}
