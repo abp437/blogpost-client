@@ -1,10 +1,39 @@
-import { useQuery } from "@apollo/client";
+import { useState } from "react";
+import { useQuery, useMutation } from "@apollo/client";
+import { Pencil, Trash2, X, Check } from "lucide-react";
+
 import { GET_MY_POSTS } from "@/graphql/queries/postQueries";
+import {
+  UPDATE_POST,
+  DELETE_POST,
+} from "@/graphql/mutations/postMutations";
+
 import PostCard from "@/components/blog/PostCard";
 import CreatePostForm from "@/components/blog/CreatePostForm";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 function Dashboard() {
   const { data, loading, error } = useQuery(GET_MY_POSTS);
+
+  const [editingId, setEditingId] = useState<string | null>(null);
+
+  const [editData, setEditData] = useState({
+    title: "",
+    content: "",
+  });
+
+  const [updatePost, { loading: updating }] = useMutation(
+    UPDATE_POST,
+    {
+      refetchQueries: ["GetMyPosts"],
+    },
+  );
+
+  const [deletePost] = useMutation(DELETE_POST, {
+    refetchQueries: ["GetMyPosts"],
+  });
 
   if (loading) {
     return (
@@ -22,6 +51,41 @@ function Dashboard() {
     );
   }
 
+  function startEditing(post: any) {
+    setEditingId(post.id);
+
+    setEditData({
+      title: post.title,
+      content: post.content,
+    });
+  }
+
+  async function saveEdit(id: string) {
+    await updatePost({
+      variables: {
+        id,
+        title: editData.title,
+        content: editData.content,
+      },
+    });
+
+    setEditingId(null);
+  }
+
+  async function handleDelete(id: string) {
+    const confirmed = window.confirm(
+      "Delete this post?",
+    );
+
+    if (!confirmed) return;
+
+    await deletePost({
+      variables: {
+        id,
+      },
+    });
+  }
+
   return (
     <div className="space-y-6">
       <CreatePostForm />
@@ -29,17 +93,92 @@ function Dashboard() {
       {data?.myPosts?.length ? (
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {data.myPosts.map((post: any) => (
-            <PostCard
+            <div
               key={post.id}
-              title={post.title}
-              content={post.content}
-              createdAt={post.createdAt}
-            />
+              className="relative"
+            >
+              {editingId === post.id ? (
+                <div className="space-y-3 rounded-lg border p-4">
+                  <Input
+                    value={editData.title}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        title: e.target.value,
+                      })
+                    }
+                  />
+
+                  <Textarea
+                    value={editData.content}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        content: e.target.value,
+                      })
+                    }
+                  />
+
+                  <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      onClick={() => saveEdit(post.id)}
+                      disabled={updating}
+                    >
+                      <Check className="mr-1 h-4 w-4" />
+                      Save
+                    </Button>
+
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => setEditingId(null)}
+                    >
+                      <X className="mr-1 h-4 w-4" />
+                      Cancel
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="relative">
+                  <div className="absolute right-3 top-3 z-10 flex gap-1">
+                    <Button
+                      size="icon"
+                      variant="secondary"
+                      className="h-8 w-8"
+                      onClick={() => startEditing(post)}
+                    >
+                      <Pencil className="h-4 w-4" />
+                    </Button>
+
+                    <Button
+                      size="icon"
+                      variant="destructive"
+                      className="h-8 w-8"
+                      onClick={() => handleDelete(post.id)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+
+                  <div className="[&>div]:pr-24">
+                    <PostCard
+                      title={post.title}
+                      content={post.content}
+                      createdAt={post.createdAt}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
           ))}
         </div>
       ) : (
         <div className="rounded-lg border border-dashed p-8 text-center">
-          <h2 className="text-lg font-semibold">No posts yet</h2>
+          <h2 className="text-lg font-semibold">
+            No posts yet
+          </h2>
+
           <p className="mt-2 text-sm text-muted-foreground">
             Create your first blog post using the form above.
           </p>

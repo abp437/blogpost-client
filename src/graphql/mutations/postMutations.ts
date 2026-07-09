@@ -11,3 +11,31 @@ export const ADD_POST = gql`
     }
   }
 `;
+
+export const UPDATE_POST = gql`
+  mutation UpdatePost(
+    $id: ID!
+    $title: String!
+    $content: String!
+  ) {
+    updatePost(
+      id: $id
+      title: $title
+      content: $content
+    ) {
+      id
+      title
+      content
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+export const DELETE_POST = gql`
+  mutation DeletePost($id: ID!) {
+    deletePost(id: $id) {
+      id
+    }
+  }
+`;
