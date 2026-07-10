@@ -10,7 +10,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { getReadableDate, getReadingTime } from "@/utils";
+import {
+  getReadableDate,
+  getReadingTime,
+} from "@/utils";
 
 function PostDetails() {
   const { id } = useParams();
@@ -44,7 +47,7 @@ function PostDetails() {
     <div className="mx-auto max-w-3xl space-y-6 py-10">
       <Card className="shadow-sm">
         <CardHeader className="space-y-4">
-          <div className="flex relative justify-center items-start gap-3">
+          <div className="relative flex items-start justify-center gap-3">
             <Button
               variant="ghost"
               size="icon"
@@ -59,7 +62,13 @@ function PostDetails() {
             </CardTitle>
           </div>
 
-          <div className="flex gap-2 text-sm justify-center text-muted-foreground">
+          <div className="flex justify-center gap-2 text-sm text-muted-foreground">
+            <span>
+              By {post.author.name}
+            </span>
+
+            <span>•</span>
+
             <span>
               {getReadableDate(post.createdAt)}
             </span>

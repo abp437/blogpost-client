@@ -13,10 +13,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { GET_MY_POSTS } from "@/graphql/queries/postQueries";
-import {
-  UPDATE_POST,
-  DELETE_POST,
-} from "@/graphql/mutations/postMutations";
+import { UPDATE_POST, DELETE_POST } from "@/graphql/mutations/postMutations";
 
 import PostCard from "@/components/blog/PostCard";
 import CreatePostForm from "@/components/blog/CreatePostForm";
@@ -34,31 +31,20 @@ function Dashboard() {
     content: "",
   });
 
-  const [updatePost, { loading: updating }] = useMutation(
-    UPDATE_POST,
-    {
-      refetchQueries: ["GetMyPosts"],
-    },
-  );
+  const [updatePost, { loading: updating }] = useMutation(UPDATE_POST, {
+    refetchQueries: ["GetMyPosts"],
+  });
 
   const [deletePost] = useMutation(DELETE_POST, {
     refetchQueries: ["GetMyPosts"],
   });
 
   if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        Loading your posts...
-      </div>
-    );
+    return <div className="flex min-h-screen items-center justify-center">Loading your posts...</div>;
   }
 
   if (error) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        Failed to load your posts.
-      </div>
-    );
+    return <div className="flex min-h-screen items-center justify-center">Failed to load your posts.</div>;
   }
 
   function startEditing(post: any) {
@@ -93,14 +79,11 @@ function Dashboard() {
   return (
     <div className="space-y-6">
       <CreatePostForm />
-
+      <h1 className="font-heading text-3xl font-bold tracking-tight">My Posts</h1>
       {data?.myPosts?.length ? (
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {data.myPosts.map((post: any) => (
-            <div
-              key={post.id}
-              className="relative"
-            >
+            <div key={post.id} className="relative">
               {editingId === post.id ? (
                 <div className="space-y-3 rounded-lg border p-4">
                   <Input
@@ -124,20 +107,12 @@ function Dashboard() {
                   />
 
                   <div className="flex gap-2">
-                    <Button
-                      size="sm"
-                      onClick={() => saveEdit(post.id)}
-                      disabled={updating}
-                    >
+                    <Button size="sm" onClick={() => saveEdit(post.id)} disabled={updating}>
                       <Check className="mr-1 h-4 w-4" />
                       Save
                     </Button>
 
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => setEditingId(null)}
-                    >
+                    <Button size="sm" variant="outline" onClick={() => setEditingId(null)}>
                       <X className="mr-1 h-4 w-4" />
                       Cancel
                     </Button>
@@ -146,48 +121,30 @@ function Dashboard() {
               ) : (
                 <div className="relative">
                   <div className="absolute right-3 top-3 z-10 flex gap-1">
-                    <Button
-                      size="icon"
-                      variant="secondary"
-                      className="h-8 w-8"
-                      onClick={() => startEditing(post)}
-                    >
+                    <Button size="icon" variant="secondary" className="h-8 w-8" onClick={() => startEditing(post)}>
                       <Pencil className="h-4 w-4" />
                     </Button>
 
                     <AlertDialog>
                       <AlertDialogTrigger>
-                        <Button
-                          size="icon"
-                          variant="destructive"
-                          className="h-8 w-8"
-                        >
+                        <Button size="icon" variant="destructive" className="h-8 w-8">
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </AlertDialogTrigger>
 
                       <AlertDialogContent>
                         <AlertDialogHeader>
-                          <AlertDialogTitle>
-                            Delete this post?
-                          </AlertDialogTitle>
+                          <AlertDialogTitle>Delete this post?</AlertDialogTitle>
 
                           <AlertDialogDescription>
-                            This action cannot be undone. This will permanently delete
-                            your blog post.
+                            This action cannot be undone. This will permanently delete your blog post.
                           </AlertDialogDescription>
                         </AlertDialogHeader>
 
                         <AlertDialogFooter>
-                          <AlertDialogCancel>
-                            Cancel
-                          </AlertDialogCancel>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
 
-                          <AlertDialogAction
-                            onClick={() => handleDelete(post.id)}
-                          >
-                            Delete
-                          </AlertDialogAction>
+                          <AlertDialogAction onClick={() => handleDelete(post.id)}>Delete</AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
@@ -198,6 +155,7 @@ function Dashboard() {
                       title={post.title}
                       content={post.content}
                       createdAt={post.createdAt}
+                      author={post.author}
                     />
                   </div>
                 </div>
@@ -207,13 +165,8 @@ function Dashboard() {
         </div>
       ) : (
         <div className="rounded-lg border border-dashed p-8 text-center">
-          <h2 className="text-lg font-semibold">
-            No posts yet
-          </h2>
-
-          <p className="mt-2 text-sm text-muted-foreground">
-            Create your first blog post using the form above.
-          </p>
+          <h2 className="text-lg font-semibold">No posts yet</h2>
+          <p className="mt-2 text-sm text-muted-foreground">Create your first blog post using the form above.</p>
         </div>
       )}
     </div>

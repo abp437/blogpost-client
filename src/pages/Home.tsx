@@ -24,14 +24,19 @@ function Home() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {data.posts.map((post: any) => (
             <Link to={`/posts/${post.id}`}>
-              <PostCard key={post.id} title={post.title} content={post.content} createdAt={post.createdAt} />
+              <PostCard
+                key={post.id}
+                title={post.title}
+                content={post.content}
+                createdAt={post.createdAt}
+                author={post.author}
+              />
             </Link>
           ))}
         </div>
       ) : (
         <div className="rounded-lg border border-dashed p-8 text-center">
           <h2 className="font-sans text-lg font-semibold">No posts available</h2>
-
           <p className="mt-2 font-serif text-sm text-muted-foreground">There are no blog posts to display yet.</p>
         </div>
       )}

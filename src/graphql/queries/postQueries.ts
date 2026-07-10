@@ -7,6 +7,9 @@ export const GET_POSTS = gql`
       title
       content
       createdAt
+      author {
+        name
+      }
     }
   }
 `;
@@ -18,6 +21,9 @@ export const GET_MY_POSTS = gql`
       title
       content
       createdAt
+      author {
+        name
+      }
     }
   }
 `;
@@ -30,6 +36,9 @@ export const GET_POST_BY_ID = gql`
       content
       createdAt
       updatedAt
+      author {
+        name
+      }
     }
   }
 `;
