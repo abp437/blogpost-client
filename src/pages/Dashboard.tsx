@@ -1,8 +1,17 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { Link } from "react-router-dom";
 import { Pencil, Trash2, X, Check } from "lucide-react";
-
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { GET_MY_POSTS } from "@/graphql/queries/postQueries";
 import {
   UPDATE_POST,
@@ -74,12 +83,6 @@ function Dashboard() {
   }
 
   async function handleDelete(id: string) {
-    const confirmed = window.confirm(
-      "Delete this post?",
-    );
-
-    if (!confirmed) return;
-
     await deletePost({
       variables: {
         id,
@@ -152,14 +155,42 @@ function Dashboard() {
                       <Pencil className="h-4 w-4" />
                     </Button>
 
-                    <Button
-                      size="icon"
-                      variant="destructive"
-                      className="h-8 w-8"
-                      onClick={() => handleDelete(post.id)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+                    <AlertDialog>
+                      <AlertDialogTrigger>
+                        <Button
+                          size="icon"
+                          variant="destructive"
+                          className="h-8 w-8"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </AlertDialogTrigger>
+
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>
+                            Delete this post?
+                          </AlertDialogTitle>
+
+                          <AlertDialogDescription>
+                            This action cannot be undone. This will permanently delete
+                            your blog post.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>
+                            Cancel
+                          </AlertDialogCancel>
+
+                          <AlertDialogAction
+                            onClick={() => handleDelete(post.id)}
+                          >
+                            Delete
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </div>
 
                   <div className="[&>div]:pr-24">
