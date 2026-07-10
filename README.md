@@ -8,16 +8,18 @@ The application consumes both the REST and GraphQL APIs exposed by the BlogPost 
 
 # Architecture Overview
 
-The frontend communicates with the backend using two API styles.
+The frontend communicates with the backend using two API layers.
 
 ## REST API
 
-REST endpoints are used for authentication-related operations, including:
+REST endpoints are used for authentication-related operations:
 
 * User registration
 * User login
-* Token refresh
-* Logout
+* Refresh token handling
+* Logout/session management
+
+---
 
 ## GraphQL API
 
@@ -30,7 +32,7 @@ GraphQL handles:
 * Updating blog posts
 * Deleting blog posts
 
-The GraphQL API is available at:
+The GraphQL API is exposed by the backend at:
 
 ```text
 http://localhost:3000/graphql
@@ -45,18 +47,18 @@ http://localhost:3000/graphql
 * JWT authentication flow
 * Blog post CRUD operations
 * Apollo Client integration
-* GraphQL Queries & Mutations
+* GraphQL queries and mutations
 * Responsive UI
-* Reusable component architecture
-* Tailwind CSS
+* Component-based architecture
+* Tailwind CSS styling
 * shadcn/ui components
-* TypeScript
+* TypeScript support
 
 ---
 
 # Tech Stack
 
-* React
+* React 19
 * TypeScript
 * Vite
 * Apollo Client
@@ -72,21 +74,32 @@ http://localhost:3000/graphql
 
 Before running the client, ensure the **BlogPost Server** is running.
 
-The backend exposes:
+The backend provides:
 
-* REST API
-* GraphQL API
+* REST API for authentication
+* GraphQL API for blog post operations
 
-By default, the client expects the backend to be available at:
+Default backend endpoints:
 
-* REST API: `http://localhost:3000`
-* GraphQL API: `http://localhost:3000/graphql`
+```text
+REST API:
+http://localhost:3000
+
+GraphQL API:
+http://localhost:3000/graphql
+```
 
 ---
 
-# Installation
+# Recommended: Run in Production Mode
 
-Clone the repository and install dependencies:
+The recommended way to run the frontend is using the production build.
+
+This ensures the application runs with the same optimized bundle that will be used during deployment.
+
+---
+
+## 1. Install dependencies
 
 ```bash
 npm install
@@ -94,17 +107,19 @@ npm install
 
 ---
 
-# Environment Variables
+## 2. Configure environment variables
 
 The repository includes a `.env.example` file.
 
-Create your local environment file:
+Create your local environment file by copying it:
 
 ```bash
 cp .env.example .env
 ```
 
-The default configuration is:
+Update the values if required.
+
+Example:
 
 ```env
 VITE_ENV=production
@@ -114,7 +129,35 @@ VITE_GRAPHQL_URL=http://localhost:3000/graphql
 
 ---
 
-# Running the Application
+## 3. Build the application
+
+Create the optimized production bundle:
+
+```bash
+npm run build
+```
+
+---
+
+## 4. Start the production server
+
+Run:
+
+```bash
+npm start
+```
+
+The application will be available at:
+
+```text
+http://localhost:4173
+```
+
+---
+
+# Development Mode (Optional)
+
+Development mode is intended for active frontend development and provides Vite hot module replacement.
 
 Start the development server:
 
@@ -128,50 +171,54 @@ The application will be available at:
 http://localhost:5173
 ```
 
+For testing the complete application flow, the production build is recommended.
+
 ---
 
-# Building for Production
+# Authentication Flow
 
-Build the application:
+The application uses JWT-based authentication.
 
-```bash
-npm run build
-```
+Flow:
 
-Preview the production build:
+1. User authenticates through REST API endpoints.
+2. Backend issues authentication tokens.
+3. Refresh token is stored using an HTTP-only cookie.
+4. Apollo Client sends authenticated GraphQL requests.
+5. Protected operations require a valid authentication session.
 
-```bash
-npm start
-```
+---
+
+# UI Architecture
+
+The UI is built using reusable React components.
+
+Technologies:
+
+* Tailwind CSS for styling
+* shadcn/ui for UI components
+* Lucide React for icons
+
+Components are organized to keep UI logic reusable across pages.
+
+---
+
+# Routing
+
+React Router is used for client-side routing.
+
+Protected routes require an authenticated user session before access is granted.
 
 ---
 
 # Available Scripts
 
-| Command         | Description                          |
-| --------------- | ------------------------------------ |
-| `npm run dev`   | Start the Vite development server    |
-| `npm run build` | Build the application for production |
-| `npm run lint`  | Run ESLint                           |
-| `npm start`     | Preview the production build         |
-
----
-
-# Project Structure
-
-```text
-src/
-├── components/
-├── graphql/
-│   ├── mutations/
-│   └── queries/
-├── hooks/
-├── lib/
-├── pages/
-├── routes/
-├── App.tsx
-└── main.tsx
-```
+| Command         | Description                       |
+| --------------- | --------------------------------- |
+| `npm run dev`   | Start Vite development server     |
+| `npm run build` | Create optimized production build |
+| `npm start`     | Preview production build          |
+| `npm run lint`  | Run ESLint checks                 |
 
 ---
 
