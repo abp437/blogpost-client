@@ -17,8 +17,6 @@ function Home() {
   return (
     <div className="mx-auto max-w-5xl space-y-8 px-4 py-8">
       <header className="space-y-2">
-        <h1 className="font-sans text-4xl font-bold tracking-tight">Blog Posts</h1>
-
         <p className="font-serif text-lg text-muted-foreground">Explore posts shared by the community.</p>
       </header>
 
