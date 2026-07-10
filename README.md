@@ -6,6 +6,10 @@ The application consumes both the REST and GraphQL APIs exposed by the BlogPost 
 
 ---
 
+https://github.com/user-attachments/assets/7be779bc-1352-4773-aff8-785b898d82ef
+
+---
+
 # Architecture Overview
 
 The frontend communicates with the backend using two API layers.
