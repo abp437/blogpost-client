@@ -33,7 +33,7 @@ function PostCard({
       </CardHeader>
 
       <CardContent className="space-y-3">
-        <p className="font-serif text-sm leading-7 text-muted-foreground">
+        <p className="font-serif text-sm leading-7 text-muted-foreground truncate">
           {content}
         </p>
 
