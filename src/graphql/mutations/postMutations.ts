@@ -13,16 +13,8 @@ export const ADD_POST = gql`
 `;
 
 export const UPDATE_POST = gql`
-  mutation UpdatePost(
-    $id: ID!
-    $title: String!
-    $content: String!
-  ) {
-    updatePost(
-      id: $id
-      title: $title
-      content: $content
-    ) {
+  mutation UpdatePost($input: UpdatePostInput!) {
+    updatePost(input: $input) {
       id
       title
       content

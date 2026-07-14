@@ -59,9 +59,11 @@ function Dashboard() {
   async function saveEdit(id: string) {
     await updatePost({
       variables: {
-        id,
-        title: editData.title,
-        content: editData.content,
+        input: {
+          id,
+          title: editData.title,
+          content: editData.content,
+        },
       },
     });
 
