@@ -1,12 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_POST } from "@/graphql/mutations/postMutations";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -23,9 +18,7 @@ function CreatePostForm() {
     refetchQueries: ["GetMyPosts"],
   });
 
-  function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -39,8 +32,10 @@ function CreatePostForm() {
     try {
       await addPost({
         variables: {
-          title: formData.title,
-          content: formData.content,
+          input: {
+            title: formData.title,
+            content: formData.content,
+          },
         },
       });
 
@@ -50,18 +45,14 @@ function CreatePostForm() {
         content: "",
       });
     } catch (error) {
-      setMessage(
-        error instanceof Error ? error.message : "Failed to create post",
-      );
+      setMessage(error instanceof Error ? error.message : "Failed to create post");
     }
   }
 
   return (
     <Card className="shadow-sm">
       <CardHeader className="space-y-2">
-        <CardTitle className="font-heading text-2xl font-bold tracking-tight">
-          Create Post
-        </CardTitle>
+        <CardTitle className="font-heading text-2xl font-bold tracking-tight">Create Post</CardTitle>
       </CardHeader>
 
       <CardContent>
@@ -93,18 +84,12 @@ function CreatePostForm() {
             />
           </div>
 
-          <Button
-            type="submit"
-            disabled={loading}
-          >
+          <Button type="submit" disabled={loading}>
             {loading ? "Creating..." : "Publish"}
           </Button>
 
           {message && (
-            <p
-              aria-live="polite"
-              className="text-sm text-muted-foreground"
-            >
+            <p aria-live="polite" className="text-sm text-muted-foreground">
               {message}
             </p>
           )}
