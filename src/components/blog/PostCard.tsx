@@ -1,18 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PostDetails } from "@/types/post";
 import { getReadableDate, getReadingTime } from "@/utils";
 
-export interface PostCardProps {
-  id: string;
-  title: string;
-  description: string;
-  content?: string;
-  createdAt: string;
-  author: {
-    name: string;
-  };
-}
-
-function PostCard({ id, title, description, content = "", createdAt, author }: PostCardProps) {
+function PostCard({ id, title, description, content = "", createdAt, author }: PostDetails) {
   return (
     <Card data-id={id} className="transition-shadow hover:shadow-md">
       <CardHeader>

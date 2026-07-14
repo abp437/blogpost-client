@@ -39,7 +39,6 @@ function PostDetails() {
                 <ArrowLeft className="h-5 w-5" />
               </Button>
             )}
-
             <CardTitle className="font-serif text-4xl leading-tight">{post.title}</CardTitle>
           </div>
 
@@ -47,13 +46,9 @@ function PostDetails() {
 
           <div className="flex justify-center gap-2 text-sm text-muted-foreground">
             <span>By {post.author.name}</span>
-
             <span>•</span>
-
             <span>{getReadableDate(post.createdAt)}</span>
-
             <span>•</span>
-
             <span>{getReadingTime(post.content)}</span>
           </div>
         </CardHeader>

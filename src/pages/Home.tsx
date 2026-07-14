@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 
 import { GET_POSTS } from "@/graphql/queries/postQueries";
-import PostCard, { PostCardProps } from "@/components/blog/PostCard";
+import PostCard from "@/components/blog/PostCard";
+import { PostDetails } from "@/types/post";
 
 function Home() {
   const { data, loading, error } = useQuery(GET_POSTS);
@@ -24,7 +25,7 @@ function Home() {
 
       {data?.posts?.length ? (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {data?.posts?.map((post: PostCardProps) => (
+          {data?.posts?.map((post: PostDetails) => (
             <div key={post.id} className="relative">
               <Link to={`/posts/${post.id}`}>
                 <PostCard
@@ -36,15 +37,15 @@ function Home() {
                 />
               </Link>
 
-              <a
-                href={`/posts/${post.id}`}
+              <Link
+                to={`/posts/${post.id}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="absolute right-3 top-3 rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
-                title="Open in new tab"
+                title="Read post in new tab"
               >
                 <ExternalLink className="h-4 w-4" />
-              </a>
+              </Link>
             </div>
           ))}
         </div>

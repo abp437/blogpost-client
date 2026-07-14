@@ -20,6 +20,7 @@ import CreatePostForm from "@/components/blog/CreatePostForm";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { PostDetails } from "@/types/post";
 
 function Dashboard() {
   const { data, loading, error } = useQuery(GET_MY_POSTS);
@@ -48,13 +49,13 @@ function Dashboard() {
     return <div className="flex min-h-screen items-center justify-center">Failed to load your posts.</div>;
   }
 
-  function startEditing(post: any) {
+  function startEditing(post: PostDetails) {
     setEditingId(post.id);
 
     setEditData({
       title: post.title,
+      content: post.content || "",
       description: post.description,
-      content: post.content,
     });
   }
 
@@ -87,7 +88,7 @@ function Dashboard() {
       <h1 className="font-heading text-3xl font-bold tracking-tight">My Posts</h1>
       {data?.myPosts?.length ? (
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {data.myPosts.map((post: any) => (
+          {data?.myPosts?.map((post: PostDetails) => (
             <div key={post.id} className="relative">
               {editingId === post.id ? (
                 <div className="space-y-3 rounded-lg border p-4">
