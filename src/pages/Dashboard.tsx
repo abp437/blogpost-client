@@ -170,6 +170,7 @@ function Dashboard() {
 
                   <div className="[&>div]:pr-24">
                     <PostCard
+                      id={post.id}
                       title={post.title}
                       description={post.description}
                       content={post.content}

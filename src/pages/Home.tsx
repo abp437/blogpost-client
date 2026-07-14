@@ -1,7 +1,9 @@
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
+import { ExternalLink } from "lucide-react";
+
 import { GET_POSTS } from "@/graphql/queries/postQueries";
-import PostCard from "@/components/blog/PostCard";
+import PostCard, { PostCardProps } from "@/components/blog/PostCard";
 
 function Home() {
   const { data, loading, error } = useQuery(GET_POSTS);
@@ -22,17 +24,28 @@ function Home() {
 
       {data?.posts?.length ? (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {data.posts.map((post: any) => (
-            <Link to={`/posts/${post.id}`}>
-              <PostCard
-                key={post.id}
-                title={post.title}
-                description={post.description}
-                content={post.content}
-                createdAt={post.createdAt}
-                author={post.author}
-              />
-            </Link>
+          {data?.posts?.map((post: PostCardProps) => (
+            <div key={post.id} className="relative">
+              <Link to={`/posts/${post.id}`}>
+                <PostCard
+                  id={post.id}
+                  title={post.title}
+                  description={post.description}
+                  createdAt={post.createdAt}
+                  author={post.author}
+                />
+              </Link>
+
+              <a
+                href={`/posts/${post.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute right-3 top-3 rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
+                title="Open in new tab"
+              >
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            </div>
           ))}
         </div>
       ) : (
