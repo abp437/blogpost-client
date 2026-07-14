@@ -22,6 +22,36 @@ export default defineConfig({
       "@utils": path.resolve(__dirname, "./src/utils"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            if (
+              id.includes("react") ||
+              id.includes("react-dom") ||
+              id.includes("react-router-dom")
+            ) {
+              return "react";
+            }
+
+            if (
+              id.includes("@apollo") ||
+              id.includes("graphql")
+            ) {
+              return "apollo";
+            }
+
+            if (id.includes("@radix-ui")) {
+              return "ui";
+            }
+
+            return "vendor";
+          }
+        },
+      },
+    },
+  },
   preview: {
     allowedHosts: ["demo.com"],
   },

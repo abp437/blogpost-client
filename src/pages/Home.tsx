@@ -27,6 +27,7 @@ function Home() {
               <PostCard
                 key={post.id}
                 title={post.title}
+                description={post.description}
                 content={post.content}
                 createdAt={post.createdAt}
                 author={post.author}

@@ -11,6 +11,7 @@ import {
 
 interface PostCardProps {
   title: string;
+  description: string;
   content: string;
   createdAt: string;
   author: {
@@ -20,6 +21,7 @@ interface PostCardProps {
 
 function PostCard({
   title,
+  description,
   content,
   createdAt,
   author,
@@ -33,6 +35,10 @@ function PostCard({
       </CardHeader>
 
       <CardContent className="space-y-3">
+        <p className="font-serif text-sm leading-7 text-muted-foreground truncate">
+          {description}
+        </p>
+
         <p className="font-serif text-sm leading-7 text-muted-foreground truncate">
           {content}
         </p>

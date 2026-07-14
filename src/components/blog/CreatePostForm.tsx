@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 function CreatePostForm() {
   const [formData, setFormData] = useState({
     title: "",
+    tagline: "",
     content: "",
   });
   const [message, setMessage] = useState("");
@@ -34,6 +35,7 @@ function CreatePostForm() {
         variables: {
           input: {
             title: formData.title,
+            description: formData.tagline,
             content: formData.content,
           },
         },
@@ -42,6 +44,7 @@ function CreatePostForm() {
       setMessage("Post created successfully!");
       setFormData({
         title: "",
+        tagline: "",
         content: "",
       });
     } catch (error) {
@@ -66,6 +69,19 @@ function CreatePostForm() {
               value={formData.title}
               onChange={handleChange}
               placeholder="Post title"
+              required
+            />
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="tagline">Tagline</Label>
+
+            <Input
+              id="tagline"
+              name="tagline"
+              value={formData.tagline}
+              onChange={handleChange}
+              placeholder="Short tagline"
               required
             />
           </div>

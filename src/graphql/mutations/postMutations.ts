@@ -5,6 +5,7 @@ export const ADD_POST = gql`
     addPost(input: $input) {
       id
       title
+      description
       content
       createdAt
       updatedAt
@@ -17,6 +18,7 @@ export const UPDATE_POST = gql`
     updatePost(input: $input) {
       id
       title
+      description
       content
       createdAt
       updatedAt

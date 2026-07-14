@@ -5,6 +5,7 @@ export const GET_POSTS = gql`
     posts {
       id
       title
+      description
       content
       createdAt
       author {
@@ -19,6 +20,7 @@ export const GET_MY_POSTS = gql`
     myPosts {
       id
       title
+      description
       content
       createdAt
       author {
@@ -33,6 +35,7 @@ export const GET_POST_BY_ID = gql`
     post(id: $id) {
       id
       title
+      description
       content
       createdAt
       updatedAt

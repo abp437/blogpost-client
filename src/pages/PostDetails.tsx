@@ -83,6 +83,9 @@ function PostDetails() {
 
         <CardContent>
           <p className="whitespace-pre-line font-serif text-base leading-8">
+            {post.description}
+          </p>
+          <p className="whitespace-pre-line font-serif text-base leading-8">
             {post.content}
           </p>
         </CardContent>

@@ -28,6 +28,7 @@ function Dashboard() {
 
   const [editData, setEditData] = useState({
     title: "",
+    description: "",
     content: "",
   });
 
@@ -52,6 +53,7 @@ function Dashboard() {
 
     setEditData({
       title: post.title,
+      description: post.description,
       content: post.content,
     });
   }
@@ -62,6 +64,7 @@ function Dashboard() {
         input: {
           id,
           title: editData.title,
+          description: editData.description,
           content: editData.content,
         },
       },
@@ -90,6 +93,7 @@ function Dashboard() {
                 <div className="space-y-3 rounded-lg border p-4">
                   <Input
                     value={editData.title}
+                    placeholder="Title"
                     onChange={(e) =>
                       setEditData({
                         ...editData,
@@ -98,8 +102,20 @@ function Dashboard() {
                     }
                   />
 
+                  <Input
+                    value={editData.description}
+                    placeholder="Tagline"
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        description: e.target.value,
+                      })
+                    }
+                  />
+
                   <Textarea
                     value={editData.content}
+                    placeholder="Content"
                     onChange={(e) =>
                       setEditData({
                         ...editData,
@@ -155,6 +171,7 @@ function Dashboard() {
                   <div className="[&>div]:pr-24">
                     <PostCard
                       title={post.title}
+                      description={post.description}
                       content={post.content}
                       createdAt={post.createdAt}
                       author={post.author}
